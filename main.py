@@ -7,7 +7,7 @@ Creat a simple window
 __author__ = 'Guanghao Chen'
 
 import sys
-from PyQt5.QtWidgets import QWidget, QApplication
+from PyQt5.QtWidgets import QApplication
 from MainWindow import MainWindow
 
 if __name__ == '__main__':

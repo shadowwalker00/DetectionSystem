@@ -1,17 +1,17 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QMainWindow,QLabel,QAction
-from  Tab import Tab
+from PyQt5.QtWidgets import QMainWindow,QLabel,QAction,QVBoxLayout,QTabWidget,QWidget
+from Tab import Tab
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         # 中心部分
-        self.train_tab = Tab(self)
-        self.label = QLabel("显示一些内容")
-        self.label.setMinimumSize(600, 500)
-        self.label.setAlignment(Qt.AlignCenter)
-        #self.setCentralWidget(self.la)
+        self.resize(800,600)
+        tab = Tab()
+        tab.__int__()
+        self.setCentralWidget(tab)
 
         # 状态栏
         self.statusBar()
@@ -20,54 +20,29 @@ class MainWindow(QMainWindow):
         menubar = self.menuBar()
         menubar.setNativeMenuBar(False)
 
-        # 定义菜单内容
+        # 定义菜单：文件，连接，帮助
         fileMenu = menubar.addMenu("File")
+        connectMenu = menubar.addMenu('Connect')
+        helpMenu = menubar.addMenu('Help')
 
-        # Action
-        exitAction = QAction(QIcon('exit.png'), 'Exit', self)
-        exitAction.setShortcut('Ctr+Q')
-        exitAction.setStatusTip('Exit Application')
-        fileMenu.addAction(exitAction)
+        # 文件菜单：导入图片，导出结果
+        loadImageAction = QAction('导入图片', self)
+        loadImageAction.setShortcut('Ctr+Q')
+        loadImageAction.setStatusTip('从本地导入一张图片用于测试')
+        exportResultAction = QAction('导出结果',self)
+        fileMenu.addAction(loadImageAction)
+        fileMenu.addAction(exportResultAction)
+
+        # 连接菜单：连接服务器
+        sshAction = QAction('连接服务器',self)
+        connectMenu.addAction(sshAction)
+
+        #帮助菜单：帮助文档，版权
+        helpDocAction = QAction('帮助文档',self)
+        copyrightAction = QAction('版权', self)
+        helpMenu.addAction(helpDocAction)
+        helpMenu.addAction(copyrightAction)
+
 
         #  设置标题
         self.setWindowTitle("行人检测系统控制中枢")
-
-
-        """
-
-    def openFile(self):
-        self.label.setText("openAction is triggered")
-
-    def quit(self):
-        self.label.setText("quitAction is triggered")
-
-    def setBold(self, isChecked):
-        if isChecked:
-            self.label.setText("boldAction is checked")
-        else:
-            self.label.setText("boldAction is not checked")
-
-    def reset(self):
-        self.label.setText("resetAction is triggered")
-
-    def createAction(self, text, slot=None, shortcut=None,
-            tip=None, checkable=False, signal="triggered()"):
-        action = QAction(text, self)
-        if shortcut is not None:
-            action.setShortcut(shortcut)
-        if tip is not None:
-            action.setToolTip(tip)
-            action.setStatusTip(tip)
-        if slot is not None:
-            self.connect(action, SIGNAL(signal), slot)
-        if checkable:
-            action.setCheckable(True)
-        return action
-
-    def addActions(self, target, actions):
-        for action in actions:
-            if action is None:
-                target.addSeperator()
-            else:
-                target.addAction(action)
-                """
