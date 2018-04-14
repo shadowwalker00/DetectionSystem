@@ -4,6 +4,8 @@
 '''
 Creat a simple window
 '''
+
+from Tools.SSH import SSH
 __author__ = 'Guanghao Chen'
 
 import sys
@@ -15,3 +17,5 @@ if __name__ == '__main__':
     mainW = MainWindow()
     mainW.show()
     sys.exit(app.exec_())
+
+

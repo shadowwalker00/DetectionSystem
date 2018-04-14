@@ -3,14 +3,13 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMainWindow,QLabel,QAction,QVBoxLayout,QTabWidget,QWidget
 from Tab import Tab
-
+from UI.SSHDialog import SSHDialog
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         # 中心部分
         self.resize(800,600)
         tab = Tab()
-        tab.__int__()
         self.setCentralWidget(tab)
 
         # 状态栏
@@ -35,6 +34,7 @@ class MainWindow(QMainWindow):
 
         # 连接菜单：连接服务器
         sshAction = QAction('连接服务器',self)
+        sshAction.triggered.connect(self.sshFuntion)
         connectMenu.addAction(sshAction)
 
         #帮助菜单：帮助文档，版权
@@ -46,3 +46,10 @@ class MainWindow(QMainWindow):
 
         #  设置标题
         self.setWindowTitle("行人检测系统控制中枢")
+    def sshFuntion(self):
+        """
+        点击连接服务器之后弹出对话框进行连接
+        :return:
+        """
+        sshBox = SSHDialog()
+        sshBox.exec()

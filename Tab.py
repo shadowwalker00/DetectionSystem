@@ -2,7 +2,8 @@ from PyQt5.QtWidgets import QTabWidget,QWidget,QLabel,QGridLayout,QRadioButton,Q
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap
 class Tab(QTabWidget):
-    def __int__(self):
+    def __init__(self):
+        super(Tab, self).__init__()
         print ('测试被调用了')
         tab1 = QWidget()
         tab2 = QWidget()
