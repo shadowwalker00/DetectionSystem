@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QMainWindow,QLabel,QAction,QVBoxLayout,QTabWidget,QWidget
+from PyQt5.QtWidgets import QMainWindow,QLabel,QAction,QVBoxLayout,QTabWidget,QWidget,QFileDialog
 from Tab import Tab
 from UI.SSHDialog import SSHDialog
 class MainWindow(QMainWindow):
@@ -9,8 +9,8 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
         # 中心部分
         self.resize(800,600)
-        tab = Tab()
-        self.setCentralWidget(tab)
+        self.tab = Tab()
+        self.setCentralWidget(self.tab)
 
         # 状态栏
         self.statusBar()
@@ -26,11 +26,13 @@ class MainWindow(QMainWindow):
 
         # 文件菜单：导入图片，导出结果
         loadImageAction = QAction('导入图片', self)
-        loadImageAction.setShortcut('Ctr+Q')
         loadImageAction.setStatusTip('从本地导入一张图片用于测试')
         exportResultAction = QAction('导出结果',self)
+        exportResultAction.setStatusTip('检测结果保存到本地')
         fileMenu.addAction(loadImageAction)
         fileMenu.addAction(exportResultAction)
+        loadImageAction.triggered.connect(self.loadImageFunction)
+        exportResultAction.triggered.connect(self.downloadImageFunction)
 
         # 连接菜单：连接服务器
         sshAction = QAction('连接服务器',self)
@@ -53,3 +55,22 @@ class MainWindow(QMainWindow):
         """
         sshBox = SSHDialog()
         sshBox.exec()
+
+    def loadImageFunction(self):
+        """
+        导入图片，显示在训练标签的原始图片中
+        :return:
+        """
+        loadFileDia = QFileDialog()
+        filename = loadFileDia.getOpenFileName(None,'选择图片','./')
+        img = QPixmap(filename[0])
+        img.scaled(self.tab.imageOriginLable.width(), self.tab.imageOriginLable.height(), Qt.IgnoreAspectRatio)
+        self.tab.imageOriginLable.setPixmap(img)
+
+    def downloadImageFunction(self):
+        """
+        从测试图片QLabel中导出结果，
+        保存到根目录下面的picture/output中
+        :return:
+        """
+        pass

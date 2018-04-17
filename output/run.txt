@@ -1,0 +1,1 @@
+nohup python ./tools/test_net.py --device GPU --device_id 0 --weights output/faster_rcnn_end2end/trainval/VGGPedesnet_fast_rcnn_iter_70000.ckpt --imdb caltech_test --cfg experiments/cfgs/faster_rcnn_end2end.yml --network VGGnet_test > testresult.out &
