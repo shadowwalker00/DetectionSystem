@@ -54,7 +54,9 @@ class MainWindow(QMainWindow):
         :return:
         """
         sshBox = SSHDialog()
-        sshBox.exec()
+        #当对话框关闭后显示状态信息
+        if (sshBox.exec()):
+            self.statusBar().showMessage(sshBox.getStatus())
 
     def loadImageFunction(self):
         """

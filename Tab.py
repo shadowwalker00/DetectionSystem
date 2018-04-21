@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QTabWidget,QWidget,QLabel,QRadioButton,QScrollBar,QVBoxLayout,QHBoxLayout,QTextEdit,QFormLayout,QPushButton
+from PyQt5.QtWidgets import QTabWidget, QWidget, QLabel, QRadioButton, QScrollBar, QVBoxLayout, QHBoxLayout, QTextEdit, QFormLayout, QPushButton
 from PyQt5 import QtCore
-from PyQt5.QtGui import QPixmap
+
 class Tab(QTabWidget):
     def __init__(self):
         super(Tab, self).__init__()
@@ -75,6 +75,9 @@ class Tab(QTabWidget):
 
         lay2.addLayout(layLeft)
         lay2.addLayout(layRight)
+
+        #testButton = QPushButton('开始检测')     #检测按钮
+        #lay2.addWidget(testButton)
         tab2.setLayout(lay2)
 
     def train(self):
