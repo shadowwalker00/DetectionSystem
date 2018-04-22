@@ -14,6 +14,7 @@ class SSHDialog(QDialog):
         self.username = QLineEdit('user2')
         self.password = QLineEdit('000000')
         connectButton = None
+        self.status = None
         self.initUI()
     def initUI(self):
         """
@@ -24,13 +25,9 @@ class SSHDialog(QDialog):
         self.setGeometry(400, 400, 300, 260)
         layout = QVBoxLayout()
         formsLayout = QFormLayout()
-        #self.addLine = QLineEdit()
         formsLayout.addRow("地址:", self.addLine)
-        #self.portLine = QLineEdit('22')
         formsLayout.addRow("端口", self.portLine)
-        #self.username = QLineEdit()
         formsLayout.addRow("用户名:", self.username)
-        #self.password = QLineEdit()
         self.password.setEchoMode(QLineEdit.Password)
         formsLayout.addRow('密码',self.password)
         layout.addLayout(formsLayout)
@@ -47,7 +44,15 @@ class SSHDialog(QDialog):
         sshObject = SSH(self.addLine.text(),self.username.text(),self.password.text())
         sshSesson = sshObject.createSession()
         pathroot = sshObject.do_execution(sshSesson,'cd chen_guang_hao/PeDetect/smallcorgi/Faster-RCNN_TF-master/;pwd')
+        sshObject.get_file('/home/user2/chen_guang_hao/PeDetect/smallcorgi/Faster-RCNN_TF-master/data/VOCdevkit2007/Caltech/data/000021lable.jpg','./picture/000021lable.jpg')
+        self.status = '连接到{}成功'.format(self.addLine)
 
+    def getStatus(self):
+        """
+        返回连接状态
+        :return:
+        """
+        return self.status
 
 
 

@@ -4,6 +4,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMainWindow,QLabel,QAction,QVBoxLayout,QTabWidget,QWidget,QFileDialog
 from Tab import Tab
 from UI.SSHDialog import SSHDialog
+from PIL import Image
+from Tools.utils import Utils
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -63,12 +65,13 @@ class MainWindow(QMainWindow):
         导入图片，显示在训练标签的原始图片中
         :return:
         """
+        util = Utils()
         loadFileDia = QFileDialog()
         filename = loadFileDia.getOpenFileName(None,'选择图片','./')
-        img = QPixmap(filename[0])
-        img.scaled(self.tab.imageOriginLable.width(), self.tab.imageOriginLable.height(), Qt.IgnoreAspectRatio)
-        self.tab.imageOriginLable.setPixmap(img)
-
+        imgPil =util.openImage(filename[0])
+        scaledPic = util.zoomPic(imgPil, (self.tab.imageOriginLable.width(), self.tab.imageOriginLable.height()))
+        imgQmap = util.pil2pixmap(scaledPic)
+        self.tab.imageOriginLable.setPixmap(imgQmap)
     def downloadImageFunction(self):
         """
         从测试图片QLabel中导出结果，
